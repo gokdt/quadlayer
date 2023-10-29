@@ -1,0 +1,7 @@
+litellm==0.12.5
+msgpack==1.0.7
+python-dotenv==1.0.0
+redis==5.0.0
+slack_bolt==1.18.0
+structlog==23.2.0
+tiktoken==0.5.1
