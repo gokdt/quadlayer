@@ -32,10 +32,8 @@ You need to add the following scopes to your bot token:
 You will need to set the following environment variables. Please refer to the [.env.example](.env.example) file for an example.
 
 - `SLACK_BOT_TOKEN` - your bot token (stated as `Bot User OAuth Token` in your app and starts with `xoxb-`)
-- `REDIS_HOST` - your Redis host
-- `REDIS_PORT` - your Redis port
-- `REDIS_PASSWORD` - your Redis password
-- `REDIS_DB` - your Redis database
+- `SLACK_APP_TOKEN` - your app token (stated as `App-Level Tokens` in your app and starts with `xapp-`)
+- `REDIS_URL` - your Redis URL (e.g. `redis://localhost:6379`)
 
 ## Usage
 
