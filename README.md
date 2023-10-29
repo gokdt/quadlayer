@@ -1,6 +1,6 @@
 # Quad Layer
 
-Quad Layer is a Slack bot that integrates GPT-4 API into Slack. It is written from scratch in Python using [Bolt for Python](https://slack.dev/bolt-python/concepts).
+Quad Layer is a Slack bot that integrates LLMs (including from OpenAI, Anthropic, and more thanks to [LiteLLM](https://github.com/BerriAI/litellm)) into Slack. It is written from scratch in Python using [Bolt for Python](https://slack.dev/bolt-python/concepts).
 
 ## Features
 
