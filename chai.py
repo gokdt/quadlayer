@@ -28,7 +28,7 @@ class Chai:
 
         fcall_tries = 0
         while (response["choices"][0]["finish_reason"] == "function_call") and (
-            fcall_tries < 5
+            fcall_tries < int(os.environ.get("LLM_MAX_FCALL_TRIES", 5))
         ):
             message_content = response["choices"][0]["message"]["function_call"]
 
