@@ -112,7 +112,6 @@ def process_message(event, say: Say):
     logger.debug(
         "Processing message",
         chat_id=chat_id,
-        user_profile=user_profile,
         message=message,
         messages_history=messages_history,
     )
