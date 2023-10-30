@@ -66,6 +66,31 @@ class Plugins:
         ]
         return "\n\n".join(snippets)
 
+    def wit(self, query: str, api_key: str | None = None) -> str:
+        """
+        Get intent using wit.ai
+
+        :param query: Query
+        :param api_key: Wit API key
+        :return: Intent
+        """
+        if not api_key:
+            raise Exception("Wit API key not found")
+
+        response = requests.get(
+            "https://api.wit.ai/message",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            params={"q": query},
+        )
+        response.raise_for_status()
+
+        wit_response = response.json()
+
+        return wit_response["intents"][0]["name"]
+
     def call_function(self, name: str, arguments: dict) -> str:
         """
         Call a function
