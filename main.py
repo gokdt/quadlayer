@@ -62,13 +62,25 @@ def append_system_message(messages_history: list, user_profile: dict) -> list:
     :param user_profile: User profile
     :return: Messages history
     """
-    messages_history.insert(
-        0,
-        {
-            "role": "system",
-            "content": f"User profile:\nName: {user_profile['real_name']} | Title: {user_profile['title']} | Company: {user_profile['team']['name']}",
-        },
-    )
+    use_profile = os.environ.get("USE_USER_PROFILE", "true").lower() == "true"
+    system_message = os.environ.get("SYSTEM_MESSAGE", "")
+
+    if use_profile:
+        messages_history.insert(
+            0,
+            {
+                "role": "system",
+                "content": f"{system_message}\n\nUser profile:\nName: {user_profile['real_name']} | Title: {user_profile['title']} | Company: {user_profile['team']['name']}",
+            },
+        )
+    else:
+        messages_history.insert(
+            0,
+            {
+                "role": "system",
+                "content": f"{system_message}\n\nUser profile:\nName: {user_profile['real_name']} | Title: {user_profile['title']} | Company: {user_profile['team']['name']}",
+            },
+        )
 
     return messages_history
 
