@@ -23,10 +23,10 @@ class Chai:
         :param kwargs: Keyword arguments
         :return: Completion
         """
-        kwargs["messages"] = self.reduce_messages_context(kwargs["messages"])
+        kwargs["messages"], intent = self.reduce_messages_context(kwargs["messages"])
         functions = self.plugins.plugins if len(self.plugins.plugins) > 0 else None
 
-        if functions:
+        if functions and (not intent or intent == "casual"):
             kwargs["functions"] = functions
 
         response = lm_completion(model=self.model, **kwargs)
@@ -54,7 +54,7 @@ class Chai:
 
         return response
 
-    def reduce_messages_context(self, messages: list) -> list:
+    def reduce_messages_context(self, messages: list) -> tuple[list, str | None]:
         """
         Reduce the messages context where possible
 
@@ -65,8 +65,10 @@ class Chai:
         anymore. We are only leaving the last 3 messages in the context.
 
         :param messages: List of messages
-        :return: List of messages with reduced context (if possible)
+        :return: List of messages with reduced context and intent
         """
+        intent = None
+
         # Context reduction is not required if there are less than 5 messages
         if len(messages) > 5:
             # Check if last message is small talk
@@ -81,4 +83,4 @@ class Chai:
                 ]  # Keep system message, last 3 messages
                 logger.debug("Reduced context", messages=messages)
 
-        return messages
+        return messages, intent
