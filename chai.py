@@ -68,6 +68,8 @@ class Chai:
         :return: List of messages with reduced context and intent
         """
         intent = None
+        if not self.wit_smalltalk_api_key:
+            return messages, intent
 
         # Context reduction is not required if there are less than 5 messages
         if len(messages) > 5:
