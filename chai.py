@@ -16,7 +16,7 @@ class Chai:
         self.plugins = Plugins()
         self.wit_smalltalk_api_key = os.environ.get("WIT_SMALLTALK_API_KEY", None)
 
-    def completion(self, **kwargs) -> ModelResponse:
+    def completion(self, user_id: str, **kwargs) -> ModelResponse:
         """
         Wrapper for litellm.completion
 
@@ -40,7 +40,16 @@ class Chai:
             fcall_response = self.plugins.call_function(
                 name=message_content["name"],
                 arguments=json.loads(message_content["arguments"]),
+                user_id=user_id,
             )
+
+            logger.debug(
+                "Function call response",
+                name=message_content["name"],
+                arguments=message_content["arguments"],
+                response=fcall_response,
+            )
+
             # Append the result of the function call to the messages history
             kwargs["messages"].append(
                 {

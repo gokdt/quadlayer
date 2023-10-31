@@ -99,9 +99,10 @@ def process_message(event, say: Say):
     :param event: Slack event
     :param say: Say
     """
+    user_id = event["user"]
     chat_id, thread = get_chat_id(event)
 
-    user_profile = init_user_profile(event["user"])
+    user_profile = init_user_profile(user_id)
 
     message = event.get("text", "")
     message = re.sub("<@.*?> ", "", message, flags=re.IGNORECASE)
@@ -126,6 +127,7 @@ def process_message(event, say: Say):
             }
             for message in messages_history
         ],
+        user_id=user_id,
     )
 
     if len(response["choices"]) > 0:
